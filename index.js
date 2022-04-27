@@ -39,6 +39,9 @@ async function run() {
       console.log(id);
     })
     //GET API
+    app.get('/', async(req, res)=>{
+      res.send("Server is running . Dont Worry!!")
+    })
     app.get('/users', async (req, res)=>{
       const query = {};
       const cursor = userCollection.find(query);
