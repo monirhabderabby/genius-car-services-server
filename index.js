@@ -24,6 +24,7 @@ async function run() {
   try{
     await client.connect();
     const userCollection = client.db("GeniusCar").collection("user");
+    const servicesCollection = client.db("ServicesCollection").collection("services");
 
     //POST API
     app.post('/user', async(req, res)=>{
@@ -32,13 +33,23 @@ async function run() {
       const result = await userCollection.insertOne(newUser)
 
     })
-
+    
+    app.get('/serviceId', async (req, res)=>{
+      const id = await req.body.serviceId;
+      console.log(id);
+    })
     //GET API
     app.get('/users', async (req, res)=>{
       const query = {};
       const cursor = userCollection.find(query);
       const users = await cursor.toArray();
       res.send(users)
+    })
+
+    app.get('/services', async (req, res)=>{
+      const cursor = servicesCollection.find({});
+      const services = await cursor.toArray();
+      res.send(services)
     })
 
     //Delete API
